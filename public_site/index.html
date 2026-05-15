@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSMAP — Smart Social Media Analytics Platform</title>
+  <meta name="description" content="Explore sentiment, trends, topics, and reports across social data. SSMAP is a modern analytics workspace for teams and coursework." />
+
+  <!-- When you deploy the full Django app, set your live app URL here for the primary CTA. Leave empty to scroll to setup instructions. -->
+  <meta name="ssmap-app-url" content="" />
+
+  <meta property="og:title" content="SSMAP — Social Media Analytics" />
+  <meta property="og:description" content="Dashboards, sentiment, trends, topics, and reports in one place." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-nav">
+    <a href="#" class="nav-brand" aria-label="SSMAP home">
+      <span class="logo-mark"><i class="fa-solid fa-chart-network" aria-hidden="true"></i></span>
+      SSMAP <span>Analytics</span>
+    </a>
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <nav class="nav-links" id="nav-menu" aria-label="Primary">
+      <a href="#features">Features</a>
+      <a href="#get-started">Share &amp; host</a>
+      <a id="try-app-btn" class="btn btn-primary" href="#get-started"><i class="fa-solid fa-arrow-right"></i> Open app</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-inner">
+        <div class="badge-pill"><span class="dot" aria-hidden="true"></span> Built for insight, not noise</div>
+        <h1 id="hero-heading">Social data, <span class="grad">one calm workspace</span></h1>
+        <p class="hero-lead">
+          SSMAP (Smart Social Media Analytics Platform) brings uploads, sentiment, trend views, topics, and exportable reports together so you can present findings clearly—ideal for demos, assignments, or team reviews.
+        </p>
+        <div class="hero-cta">
+          <a id="try-app-btn-hero" class="btn btn-primary" href="#get-started"><i class="fa-solid fa-rocket"></i> Get started</a>
+          <a class="btn btn-secondary" href="#features"><i class="fa-solid fa-layer-group"></i> See features</a>
+        </div>
+        <div class="hero-stats" role="presentation">
+          <div class="stat-box"><strong>6+</strong><span>Analysis views</span></div>
+          <div class="stat-box"><strong>Live</strong><span>Chart-driven UI</span></div>
+          <div class="stat-box"><strong>CSV</strong><span>Report export</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" aria-labelledby="features-heading">
+      <div class="section-head">
+        <h2 id="features-heading">Everything you need to tell the story</h2>
+        <p>Match the same flows as the full application: from raw uploads to polished summaries.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon i1"><i class="fa-solid fa-grid-2"></i></div>
+          <h3>Dashboard</h3>
+          <p>At-a-glance KPIs, platform mix, and activity so stakeholders see the headline first.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon i2"><i class="fa-solid fa-face-smile"></i></div>
+          <h3>Sentiment</h3>
+          <p>Track positive, neutral, and negative tone over time to spot shifts in conversation.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon i3"><i class="fa-solid fa-chart-line-up"></i></div>
+          <h3>Trends</h3>
+          <p>Visualize momentum and seasonality to support forecasts and campaign timing.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon i4"><i class="fa-solid fa-hashtag"></i></div>
+          <h3>Topics</h3>
+          <p>Surface recurring themes and hashtags to align messaging with what people actually say.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon i5"><i class="fa-solid fa-users"></i></div>
+          <h3>Audience &amp; platforms</h3>
+          <p>Understand who shows up where, so you invest effort on the right channels.</p>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon i6"><i class="fa-solid fa-file-chart-column"></i></div>
+          <h3>Reports</h3>
+          <p>Compile charts and tables, then download CSV for slides, appendices, or archives.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="get-started" class="get-started" aria-labelledby="get-started-heading">
+      <div class="section-head">
+        <h2 id="get-started-heading">Share this page publicly</h2>
+        <p>This folder is static HTML and CSS only—no server required for the marketing site. Host it anywhere; run the Django app separately when you need login and data.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <h3>Host this landing page</h3>
+            <p>Upload the <code>public_site</code> folder to <a href="https://www.netlify.com/">Netlify</a>, <a href="https://pages.github.com/">GitHub Pages</a>, <a href="https://vercel.com/">Vercel</a>, or any static host. Set the published directory to <code>public_site</code> if your repository contains the whole project.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <h3>Preview on your computer</h3>
+            <p>From inside <code>public_site</code>, start a simple file server:</p>
+            <code>python3 -m http.server 8080</code>
+            <p style="margin-top:10px">Then open <code>http://127.0.0.1:8080/</code> in your browser.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <h3>Point visitors to your live app (optional)</h3>
+            <p>Edit <code>index.html</code> and set the <code>content</code> attribute on the <code>&lt;meta name="ssmap-app-url" content="" /&gt;</code> tag to your deployed Django URL. The “Open app” button will then send people straight to your running instance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>SSMAP — Smart Social Media Analytics Platform · ICT302 project showcase</p>
+    <p style="margin-top:8px"><a href="#get-started">Hosting tips</a> · <a href="#features">Features</a></p>
+  </footer>
+
+  <script>
+    (function () {
+      var meta = document.querySelector('meta[name="ssmap-app-url"]');
+      var url = meta && meta.getAttribute('content') ? meta.getAttribute('content').trim() : '';
+      var btns = document.querySelectorAll('#try-app-btn, #try-app-btn-hero');
+      btns.forEach(function (btn) {
+        if (url) {
+          btn.setAttribute('href', url);
+          btn.setAttribute('target', '_blank');
+          btn.setAttribute('rel', 'noopener noreferrer');
+        }
+      });
+
+      var toggle = document.querySelector('.nav-toggle');
+      var menu = document.getElementById('nav-menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', function () {
+          var open = menu.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        menu.querySelectorAll('a').forEach(function (link) {
+          link.addEventListener('click', function () {
+            menu.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          });
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

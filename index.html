@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SSMAP — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <style>
+    body { display: flex; min-height: 100vh; overflow: hidden; }
+
+    /* Left Panel */
+    .auth-left {
+      flex: 1;
+      background: var(--bg-secondary);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .auth-left::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%);
+      top: -100px; left: -100px;
+      animation: pulse 6s ease-in-out infinite;
+    }
+    .auth-left::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(139,92,246,0.1), transparent 70%);
+      bottom: -50px; right: -50px;
+      animation: pulse 8s ease-in-out infinite reverse;
+    }
+    @keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.1)} }
+
+    .auth-left-content { position: relative; z-index: 1; max-width: 420px; }
+
+    .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 48px; }
+    .brand-icon {
+      width: 52px; height: 52px;
+      background: var(--gradient-primary);
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: #fff;
+      box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    }
+    .brand-name { font-size: 22px; font-weight: 800; color: var(--text-primary); }
+    .brand-sub { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+
+    .hero-title { font-size: 2.2rem; font-weight: 800; line-height: 1.25; margin-bottom: 16px; }
+    .hero-title span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero-desc { color: var(--text-muted); font-size: 14px; line-height: 1.7; margin-bottom: 40px; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 16px; }
+    .feature-item { display: flex; align-items: center; gap: 14px; }
+    .feature-icon {
+      width: 36px; height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+    .feature-icon.a { background: rgba(99,102,241,0.15); color: var(--primary-light); }
+    .feature-icon.b { background: rgba(16,185,129,0.15); color: #34d399; }
+    .feature-icon.c { background: rgba(245,158,11,0.15); color: #fbbf24; }
+    .feature-icon.d { background: rgba(6,182,212,0.15); color: #22d3ee; }
+    .feature-text { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
+
+    /* Right Panel */
+    .auth-right {
+      width: 480px;
+      flex-shrink: 0;
+      background: var(--bg-primary);
+      border-left: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 44px;
+    }
+    .auth-form-wrapper { width: 100%; }
+
+    .auth-tabs { display: flex; background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 4px; margin-bottom: 32px; }
+    .auth-tab {
+      flex: 1; padding: 10px;
+      border-radius: 6px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: var(--transition);
+    }
+    .auth-tab.active { background: var(--bg-card); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+    .auth-form { display: none; }
+    .auth-form.active { display: block; animation: fadeInUp 0.35s ease; }
+
+    .auth-heading { margin-bottom: 28px; }
+    .auth-heading h2 { font-size: 1.4rem; font-weight: 800; }
+    .auth-heading p { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+    .password-wrapper { position: relative; }
+    .password-toggle {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--text-muted); cursor: pointer;
+      font-size: 14px; padding: 4px; transition: var(--transition);
+    }
+    .password-toggle:hover { color: var(--text-secondary); }
+
+    .remember-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+    .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--text-secondary); }
+    .checkbox-label input { accent-color: var(--primary); }
+    .forgot-link { font-size: 13px; color: var(--primary-light); font-weight: 500; }
+    .forgot-link:hover { color: var(--text-primary); }
+
+    .divider-text { display: flex; align-items: center; gap: 12px; margin: 20px 0; }
+    .divider-text::before, .divider-text::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .divider-text span { font-size: 12px; color: var(--text-muted); }
+
+    .social-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .social-btn {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 10px; border-radius: var(--radius-sm);
+      background: var(--bg-card); border: 1px solid var(--border);
+      color: var(--text-secondary); font-size: 13px; font-weight: 500;
+      cursor: pointer; font-family: inherit; transition: var(--transition);
+    }
+    .social-btn:hover { border-color: var(--primary); color: var(--text-primary); }
+    .social-btn i { font-size: 15px; }
+    .social-btn .fa-google { color: #ea4335; }
+    .social-btn .fa-github { color: #94a3b8; }
+
+    .demo-hint {
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .demo-hint i { color: var(--primary-light); }
+
+    .strength-bar { height: 4px; border-radius: 4px; background: var(--bg-secondary); margin-top: 8px; overflow: hidden; }
+    .strength-fill { height: 100%; border-radius: 4px; transition: width 0.3s, background 0.3s; width: 0%; }
+    .strength-label { font-size: 11px; margin-top: 4px; font-weight: 500; }
+
+    @media (max-width: 860px) {
+      .auth-left { display: none; }
+      .auth-right { width: 100%; border: none; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Left Panel -->
+  <div class="auth-left">
+    <div class="auth-left-content">
+      <div class="brand">
+        <div class="brand-icon"><i class="fa-solid fa-chart-network"></i></div>
+        <div>
+          <div class="brand-name">SSMAP</div>
+          <div class="brand-sub">Social Analytics Platform</div>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        Understand Your<br />
+        <span>Social Media</span><br />
+        Like Never Before
+      </h1>
+      <p class="hero-desc">
+        AI-powered sentiment analysis, real-time trend prediction, and intelligent reporting — all in one unified dashboard.
+      </p>
+
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="feature-icon a"><i class="fa-solid fa-brain"></i></div>
+          <div class="feature-text">Real-time AI sentiment analysis across platforms</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon b"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="feature-text">Predictive trend forecasting with 94% accuracy</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon c"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+          <div class="feature-text">Bulk dataset upload and intelligent parsing</div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon d"><i class="fa-solid fa-file-chart-column"></i></div>
+          <div class="feature-text">Exportable reports in PDF, CSV, and Excel</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel -->
+  <div class="auth-right">
+    <div class="auth-form-wrapper">
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <div class="auth-form active" id="form-login">
+        <div class="auth-heading">
+          <h2>Welcome back</h2>
+          <p>Sign in to your SSMAP account</p>
+        </div>
+
+        {% if error %}
+        <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#f87171;margin-bottom:16px;">
+          <i class="fa-solid fa-circle-xmark"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'login' %}" id="login-form">
+          {% csrf_token %}
+
+          <div class="form-group form-control-icon">
+            <label class="form-label">Username</label>
+            <i class="fa-regular fa-envelope"></i>
+            <input type="text" class="form-control" name="username" id="login-identifier" placeholder="your username" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-wrapper">
+              <input type="password" class="form-control" name="password" id="login-password" placeholder="••••••••" required />
+              <button class="password-toggle" onclick="togglePwd('login-password', this)" type="button">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="remember-row">
+            <label class="checkbox-label">
+              <input type="checkbox" id="remember-me" />
+              Remember me
+            </label>
+            <a href="#" class="forgot-link">Forgot password?</a>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg" type="submit" id="login-btn">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Sign In
+          </button>
+        </form>
+
+        <div class="demo-hint" style="margin-top:20px;">
+          <i class="fa-solid fa-circle-info"></i>
+          Use the username and password you registered with
+        </div>
+      </div>
+
+      <!-- Signup Form -->
+      <div class="auth-form {% if show_signup %}active{% endif %}" id="form-signup">
+        <div class="auth-heading">
+          <h2>Create account</h2>
+          <p>Start your free SSMAP trial today</p>
+        </div>
+
+        {% if signup_error %}
+        <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:10px 14px;font-size:13px;color:#f87171;margin-bottom:16px;">
+          <i class="fa-solid fa-circle-xmark"></i> {{ signup_error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'signup' %}">
+          {% csrf_token %}
+
+          <div class="grid grid-2" style="gap:12px;">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-control" name="first_name" placeholder="Alex" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-control" name="last_name" placeholder="Johnson" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" placeholder="choose a username" required />
+          </div>
+
+          <div class="form-group form-control-icon">
+            <label class="form-label">Email</label>
+            <i class="fa-regular fa-envelope"></i>
+            <input type="email" class="form-control" name="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <div class="password-wrapper">
+              <input type="password" class="form-control" name="password" id="signup-password" placeholder="Min. 8 characters" oninput="checkPasswordStrength(this.value)" required />
+              <button class="password-toggle" onclick="togglePwd('signup-password', this)" type="button">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+            <div class="strength-label text-muted" id="strength-label"></div>
+          </div>
+
+          <button class="btn btn-primary btn-block btn-lg" type="submit" style="margin-top:8px;">
+            <i class="fa-solid fa-user-plus"></i>
+            Create Account
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+  <script>
+    // switch between login and signup tabs
+    function switchTab(tab) {
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      document.getElementById('tab-' + tab).classList.add('active');
+      document.getElementById('form-' + tab).classList.add('active');
+    }
+
+    // show or hide password
+    function togglePwd(id, btn) {
+      const input = document.getElementById(id);
+      const icon = btn.querySelector('i');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fa-regular fa-eye-slash';
+      } else {
+        input.type = 'password';
+        icon.className = 'fa-regular fa-eye';
+      }
+    }
+
+    // check how strong the password is
+    function checkPasswordStrength(pwd) {
+      const fill  = document.getElementById('strength-fill');
+      const label = document.getElementById('strength-label');
+      let score = 0;
+      if (pwd.length >= 8)           score++;
+      if (/[A-Z]/.test(pwd))         score++;
+      if (/[0-9]/.test(pwd))         score++;
+      if (/[^A-Za-z0-9]/.test(pwd))  score++;
+      const levels = [
+        { w: '0%',   c: 'transparent', t: '' },
+        { w: '25%',  c: '#ef4444', t: 'Weak' },
+        { w: '50%',  c: '#f59e0b', t: 'Fair' },
+        { w: '75%',  c: '#06b6d4', t: 'Good' },
+        { w: '100%', c: '#10b981', t: 'Strong' },
+      ];
+      const l = levels[score] || levels[0];
+      fill.style.width = l.w;
+      fill.style.background = l.c;
+      label.textContent = l.t;
+      label.style.color = l.c;
+    }
+
+    // if signup tab should be open on page load (e.g. after error)
+    {% if show_signup %}
+    switchTab('signup');
+    {% endif %}
+  </script>
+</body>
+</html>
